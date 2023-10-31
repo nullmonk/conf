@@ -1,0 +1,8 @@
+[Match]
+Name=docker*
+Name=veth*
+Name=br-*
+
+[Link]
+Unmanaged=true
+IPForward=yes
