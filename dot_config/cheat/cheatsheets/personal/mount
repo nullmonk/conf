@@ -1,0 +1,5 @@
+# Mount for a user to access
+mount /dev/sda1 /mnt/misc -o umask=000
+
+# Mount bind
+mount --bind /tmp /proc/1776

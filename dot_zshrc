@@ -1,0 +1,96 @@
+export PATH=$HOME/bin:$HOME/.config/bin:/usr/local/bin:/home/lethicon/.local/share/gem/ruby/3.0.0/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/go/bin:$PATH
+export ZSH="$HOME/.config/oh-my-zsh"
+export _JAVA_AWT_WM_NONREPARENTING=1 # https://wiki.archlinux.org/title/Sway#Java_applications
+export EDITOR='vim'
+export TERM="xterm-256color"
+export GTK_THEME="Arc-Dark"
+
+# ZSH Stuff
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="robbyrussell"
+#ZSH_THEME="eastwood"
+COMPLETION_WAITING_DOTS="true"
+DISABLE_AUTO_UPDATE=true
+plugins=(git)
+ZSH_COMPDUMP=$HOME/.cache/zsh/zcompdump-$ZSH_VERSION
+source $ZSH/oh-my-zsh.sh
+
+# Disable history
+unsetopt share_history
+unset HISTFILE
+
+function gitt() {
+    if [[ "$1" == "" ]]; then
+	echo "USAGE: gitt <repository>|<user/repository>"
+    elif [[ $1 =~ ".+/.+" ]]; then
+        echo git clone git@github.com:$@
+        git clone git@github.com:$@
+    else
+        echo git clone git@github.com:$(git config user.name)/$@
+        git clone git@github.com:$(git config user.name)/$@
+    fi
+}
+
+function ytdl() {
+    if [ -f "./.ytdlp.conf" ]; then
+	    yt-dlp --config-locations .ytdlp.conf $@
+    elif [ -f "../.ytdlp.conf" ]; then
+        yt-dlp --config-locations ../.ytdlp.conf $@
+    else
+	    yt-dlp $@
+    fi
+}
+
+_ssh_agent=`which ssh-agent`
+
+function ssh-agent() {
+    echo Use this instead:
+    echo "eval \"\$(${_ssh_agent} -s)\""
+}
+
+# Usage: choose_binary original_binary alternative_binary [args...]
+choose_binary() {
+  local orig="$1"
+  local alt="$2"
+  shift 2
+  local use="$orig"
+
+  # Check if terminal is interactive
+  if [[ -t 1 ]]; then
+    # Prompt user
+    read -r "REPLY?Run '$alt' instead of '$orig'? [y/N] "
+    if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+      use="$alt"
+    fi
+  fi
+
+  # Execute the chosen binary with remaining arguments
+  "$use" "$@"
+}
+
+
+# Use bat to colorize man pages
+export MANROFFOPT="-c"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# Hardcoded replacements
+alias blu="bluetoothctl"
+alias nc="ncat"
+alias ls="exa -l"
+alias cat="bat -pp"
+alias tree="exa --tree"
+alias rrsync="rsync --ignore-existing --exclude '*.part' -rP"
+alias msync="rsync --ignore-existing --exclude '*.part'  --exclude '*.txt'  --exclude '*.jpg' -rP"
+alias files="systemd-run --user nautilus"
+alias runn="systemd-run --user"
+
+# suggested replacements
+alias du="choose_binary du dysk"
+alias grep="choose_binary grep rg"
+alias find="choose_binary find fd"
+alias xxd="choose_binary xxd hexyl"
+alias tail="choose_binary tail tspin"
+
+# TODO: Check if we are looking at logs, e.g. /var/log/, docker, journald, and pipe it into tspin

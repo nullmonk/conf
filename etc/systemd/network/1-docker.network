@@ -1,0 +1,15 @@
+[Match]
+# Docker is unmanaged
+Name=docker*
+Name=veth*
+Name=br-*
+# WG tunnels are unmanaged
+Name=wg*
+Name=tun*
+# Libvirt is unmanaged
+Name=virbr*
+Name=vnet*
+
+[Link]
+Unmanaged=true
+IPForward=yes

@@ -1,0 +1,43 @@
+
+# Managed per-machine?
+[user]
+	name = {{ .username }}
+	email = {{ .email }}
+
+# Rewrite to ssh for github
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+
+# Read this: https://blog.gitbutler.com/how-git-core-devs-configure-git
+[column]
+        ui = auto
+[branch]
+        sort = -committerdate
+[tag]
+        sort = version:refname
+[init]
+        defaultBranch = main
+[diff]
+        algorithm = histogram
+        colorMoved = plain
+        renames = true
+[push]
+        default = simple # Should be default already
+        autoSetupRemote = true
+[fetch]
+        all = true
+[help]
+        autocorrect = prompt
+[commit]
+        verbose = true
+[rerere]
+        enabled = true
+        autoupdate = true
+[core]
+        excludesfile = ~/.gitignore
+[rebase]
+        autoSquash = true
+        autoStash = true
+        updateRefs = true
+[pull]
+        rebase = true

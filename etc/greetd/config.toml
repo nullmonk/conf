@@ -1,0 +1,6 @@
+[terminal]
+vt = 1
+
+[default_session]
+command = "tuigreet --cmd sway -r --asterisks --asterisks-char '#' -g 'Would you like to play a game?'"
+user = "greeter"

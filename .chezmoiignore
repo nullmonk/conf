@@ -1,0 +1,39 @@
+# Ignore sway config if sway not installed or SWAY_SOCK not set
+{{ if not (lookPath "sway") -}}
+.config/sway/**
+{{ end -}}
+
+# Ignore wlogout config if wlogout is not installed
+{{ if not (lookPath "wlogout") -}}
+.config/wlogout/**
+{{ end -}}
+
+# Ignore cheat config if cheat is not installed
+{{ if not (lookPath "cheat") -}}
+.config/cheat/**
+{{ end -}}
+
+# Ignore kitty config if kitty is not installed
+{{ if not (lookPath "kitty") -}}
+.config/kitty/**
+{{ end -}}
+
+# Ignore waybar config if waybar is not installed
+{{ if not (lookPath "waybar") -}}
+.config/waybar/**
+{{ end -}}
+
+# Ignore waynergy config if waynergy is not installed
+{{ if not (stat "/usr/bin/waynergy") -}}
+.config/waynergy/**
+{{ end -}}
+
+# Ignore systemd network configs if the directory doesn't exist
+{{ if not (stat "/etc/systemd/network") -}}
+etc/systemd/network/**
+{{ end -}}
+
+# Ignore iwd
+{{ if not (lookPath "iwctl") -}}
+etc/iwd/**
+{{ end -}}
