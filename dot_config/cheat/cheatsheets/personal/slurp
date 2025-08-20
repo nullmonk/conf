@@ -1,0 +1,2 @@
+# Select an area to capture, save it to ~/screenshot.png and the clipboard
+grim -g "$(slurp)" - | tee ~/screenshot.png | wl-copy -t image/png

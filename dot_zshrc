@@ -87,7 +87,7 @@ alias files="systemd-run --user nautilus"
 alias runn="systemd-run --user"
 
 # suggested replacements
-alias du="choose_binary du dysk"
+alias df="choose_binary df dysk"
 alias grep="choose_binary grep rg"
 alias find="choose_binary find fd"
 alias xxd="choose_binary xxd hexyl"
